@@ -1,0 +1,19 @@
+name: "animal_classify"
+platform: "onnxruntime_onnx"
+input [
+  {
+    name: "images"
+    data_type: TYPE_FP32
+    format: FORMAT_NCHW
+    dims: [ 3, 112, 112 ]
+    reshape { shape: [ 1, 3, 112, 112 ] }
+  }
+]
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32
+    dims: [1, 6]
+    label_filename: "labels.txt"
+  }
+]

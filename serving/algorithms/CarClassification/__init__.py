@@ -1,0 +1,1 @@
+from .carClassification import CarClassification as main_class

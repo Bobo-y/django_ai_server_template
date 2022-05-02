@@ -1,0 +1,1 @@
+from .animalAndCarDetection import AnimalAndCarDetection as main_class

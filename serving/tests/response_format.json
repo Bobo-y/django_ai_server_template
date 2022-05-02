@@ -1,0 +1,29 @@
+{
+    "prediction": [
+        [
+            0,
+            0.9632987976074219,
+            0,
+            0,
+            1,
+            1
+        ]
+    ],
+    "usingTime": 0.07426309585571289,
+    "imageSize": {
+        "height": 576,
+        "width": 960,
+        "depth": 3
+    },
+    "title": "label_id, confidence_score, x_min, y_min, x_max, y_max",
+    "categories": [
+        {
+            "label_id": 0,
+            "name": "jiaozhu"
+        },
+        {
+            "label_id": 1,
+            "name": "no_jiaozhu"
+        }
+    ]
+}

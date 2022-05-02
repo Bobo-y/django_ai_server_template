@@ -1,0 +1,62 @@
+version: "2.3"
+
+services:
+    # tensorflow:
+    #     image: tensorflow_serving-gpu:0.0.0
+    #     runtime: nvidia
+    #     environment:
+    #         CUDA_VISIBLE_DEVICES: 0
+    #     ports:
+    #         - "8600:8600"
+    #         - "8601:8601"
+    #     command:
+    #         - --per_process_gpu_memory_fraction=0.5
+    #     hostname: serving-tensorflow
+    #     container_name: serving-tensorflow
+    #     networks:
+    #         - serving-network
+    #     volumes:
+    #         - /etc/localtime:/etc/localtime
+    #     labels:
+    #         - deploy.author=lin
+    #         -
+    triton:
+        image: triton_serving-gpu:0.0.0
+        runtime: nvidia
+        environment:
+            CUDA_VISIBLE_DEVICES: 0
+        ports:
+            - "8002:8000"
+            - "8003:8001"
+        command:
+            - --per_process_gpu_memory_fraction=0.5
+        hostname: serving-triton
+        container_name: serving-triton
+        networks:
+            - serving-network
+        volumes:
+            - /etc/localtime:/etc/localtime
+        labels:
+            - deploy.author=lin
+    ai:
+        image: algorithms_serving:0.0.0
+        environment:
+            # TF_SERVING_HOST: "serving-tensorflow:8600"
+            TRITON_SERVING_HOST: "serving-triton:8001"
+            AI_SERVING_VERSION: 0.0.0
+        ports:
+            - "8211:8211"
+            - "8210:8210"
+        hostname: django_serving
+        container_name: django_serving
+        networks:
+            - serving-network
+        volumes:
+            - /etc/localtime:/etc/localtime
+            - ./image/:/root/dist/image
+        mac_address: 8a:ca:58:b9:e9:51
+        labels:
+            - deploy.author=lin
+
+networks:
+    serving-network:

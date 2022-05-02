@@ -1,0 +1,16 @@
+db.sqlite3
+#*.jpg
+*.png
+*.bmp
+*.zip
+*.pyc
+*.logs
+**/__pycache__/*
+nginx/logs/*.log
+logs/*.log
+# lib/*
+.vscode/*
+.idea/
+images/
+*__pycache__
+

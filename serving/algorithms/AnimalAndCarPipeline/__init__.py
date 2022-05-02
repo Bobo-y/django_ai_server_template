@@ -1,0 +1,1 @@
+from .animalAndCarPipeline import AnimalAndCarPipeline as main_class
