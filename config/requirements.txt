@@ -1,7 +1,7 @@
 django==2.2.28
 djangorestframework==3.11.2
 tensorflow-serving-api==2.3.0
-opencv-python-headless~=3.4
+opencv-python-headless~=4.2.0.32
 torch==1.5.0
 torchvision==0.6.0
 scipy==1.4.1
