@@ -18,10 +18,10 @@ class ObjectDetection(AlgorithmBase):
     default_args = {
         "confThreshold": 0.4,
         "categories": [
-            {"label_id": 1, "name": "person"},
+            {"label_id": 1, "name": "xxx"},
         ],
         "category_color_map": {
-            "person": (0, 0, 255)
+            "xxx": (0, 0, 255)
         },
         "model_serving": {
             "version": None,

@@ -20,39 +20,21 @@ def softmax(x, axis=None):
     y = np.exp(x)
     return y / y.sum(axis=axis, keepdims=True)
 
-def load_class_by_code(algorithm_code, package_path='algorithms'):
+def load_class_by_code(algorithm_name, package_path='algorithms'):
     """load a algorithm code using algorithm code.
     
     Args:
-        algorithm_code: str, the code of algorithm whitch is the same as the algorighm module name;
+        algorithm_name: str, the code of algorithm whitch is the same as the algorighm module name;
         package_path: str, the path of loading algorithm modules.
     Returns:
         the main class in algorithm modules
     """
     try:
-        ip_module = importlib.import_module('.'+algorithm_code, package=__package__)
+        ip_module = importlib.import_module('.'+algorithm_name, package=__package__)
     except:
-        ip_module = importlib.import_module(package_path+'.'+algorithm_code)
+        ip_module = importlib.import_module(package_path+'.'+algorithm_name)
     main_class = getattr(ip_module, 'main_class')
     return main_class
-
-
-def get_image_url_in_aliyun(image_url):
-    image_url_aliyun = image_url.replace(
-            'gss-ivs.oss-cn-beijing.aliyuncs',
-            'gss-ivs.oss-cn-beijing-internal.aliyuncs')
-    return image_url_aliyun
-
-
-def try_download_image(image_url_aliyun, image_save_dir, image_format='jpg'):
-    try:
-        image_path = downloadImageWithUrl(image_url_aliyun, image_save_dir, image_format)
-    except (FileNotFoundError, ConnectionError) as err:
-        logger.exception('image_url_aliyun', image_url_aliyun)
-        logger.exception('image_save_dir', image_save_dir)
-        logger.error('%d, %s', 10003, err)
-        raise
-    return image_path
 
 
 def get_image_id_by_url(image_url: str):
@@ -133,29 +115,6 @@ def downloadImageWithUrl(image_url: str, save_dir: str, image_format='jpg'):
     return image_path
 
 
-def download_image_url(image_url, image_save_dir, internal_aliyun=False):
-    # 解码会造成阿里云图片地址解析报错
-    # # 对url decode，避免中文和特殊字符上传出现问题
-    # image_url = urllib.parse.unquote(image_url)
-
-    if internal_aliyun:
-        image_url_aliyun = get_image_url_in_aliyun(image_url)
-    else:
-        image_url_aliyun = image_url
-    # 根据url下载图片
-    image_path = try_download_image(image_url_aliyun, image_save_dir)
-    return image_path
-
-
-def download_video_url(video_url, image_save_dir, internal_aliyun=False):
-    if internal_aliyun:
-        video_url_aliyun = get_image_url_in_aliyun(video_url)
-    else:
-        video_url_aliyun = video_url
-    image_path = try_download_image(video_url_aliyun, image_save_dir, image_format='mp4')
-    return image_path
-
-
 def save_base64_image(image_str, image_save_dir):
     """save base64 image to a file.
 
@@ -184,25 +143,13 @@ def save_base64_image(image_str, image_save_dir):
 def decode_image(image_str, image_save_dir):
     imgExt = ['jpg', 'jpeg', 'png', 'bmp']
     if image_str.startswith('http'):
-        image_path = download_image_url(image_str, image_save_dir)
+        image_path = downloadImageWithUrl(image_str, image_save_dir)
     elif is_image_file(image_str): 
-    #elif image_str.startswith('/'):
-        # shutil.copy(image_str, os.path.join(IMAGE_SAVE_DIR))
-        # image_path = os.path.join(IMAGE_SAVE_DIR, image_str.split('/')[-1])
         assert os.path.exists(image_str), image_str
         image_path = image_str
     else:
         image_path = save_base64_image(image_str, image_save_dir)
     return image_path
-
-
-def decode_video(video_str, image_save_dir):
-    if video_str.startswith('http'):
-        video_path = download_video_url(video_str, image_save_dir)
-    elif is_video_file(video_str):
-        assert os.path.exists(video_str), video_str
-        video_path = video_str
-    return video_path
 
 
 def decode_request_data(request_data: dict, image_save_dir: str):

@@ -7,6 +7,7 @@ import threading
 from django.conf import settings
 from utils.utils import load_class_by_code
 from utils import exception
+import sys
 
 
 logger = logging.getLogger(__name__)
@@ -28,7 +29,8 @@ if TRITON_SERVING_HOST and ':' in TRITON_SERVING_HOST:
     MODELS_SERVING['TRITON_SERVING'] = TritonServingClient(TRITON_SERVING_HOST)
 
 if MODELS_SERVING['TF_SERVING'] is None and MODELS_SERVING['TRITON_SERVING'] is None:
-    logger.warning('Can not load model serving.')
+    logger.error('Can not load model serving. please check your config')
+    sys.exit()
 
 
 class AIServingClient():
@@ -50,7 +52,7 @@ class AIServingClient():
         args = self.metadata
         for algorithm_obj in args['algorithms']:
             temp_results = self.run_algorithm(args['image_path'], algorithm_obj)
-            self.json_result[algorithm_obj['algorithmCode']] = list(temp_results)
+            self.json_result[algorithm_obj['algorithmName']] = list(temp_results)
 
     def run_algorithm(self, image_path, args):
         try:
@@ -74,20 +76,20 @@ class AIServingClient():
         """
 
         temp_results = []
-        algorithm_code = args['algorithmCode']
+        algorithm_name = args['algorithmName']
         thresh = args['confThreshold'] = args['thresh'] if 'thresh' in args else None
 
         # load algorithm class
-        if algorithm_code not in code_class_map:
-            code_class_map[algorithm_code] = load_class_by_code(algorithm_code)(self.models_serving)
+        if algorithm_name not in code_class_map:
+            code_class_map[algorithm_name] = load_class_by_code(algorithm_name)(self.models_serving)
 
         try:
             # call inference function
-            result = code_class_map[algorithm_code](image_path, args)
+            result = code_class_map[algorithm_name](image_path, args)
             
             save_path = os.path.join(settings.IMAGE_SAVE_DIR, os.path.basename(image_path))
             category_color_map = result["category_color_map"]
-            result_image_path = code_class_map[algorithm_code].draw_result(image_path, result, save_path, category_color_map)
+            result_image_path = code_class_map[algorithm_name].draw_result(image_path, result, save_path, category_color_map)
             result['saveImageUrl'] = result_image_path
             temp_results.append(result)
         except Exception as err:

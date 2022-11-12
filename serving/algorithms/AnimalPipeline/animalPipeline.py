@@ -12,8 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 class AnimalPipeline(PipelineBase):
-    """反光衣检测流水线
-    """
 
     def __init__(self, model_serving):
         self.model_serving = model_serving
@@ -34,8 +32,8 @@ class AnimalPipeline(PipelineBase):
         """
         Args:
         Returns:
-            sub_images: n 个分类器的图片数据
-            sub_det_data_list: n 个分类器拆分到的检测结果
+            sub_images: 
+            sub_det_data_list: 
         """
         title_index_map = title_to_name_map(det_output['title'])
         id_category_map = categories_to_id_map(det_output['categories'])

@@ -9,7 +9,7 @@ from algorithm_api.views import get_algorithm_docs
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('ai/<slug:algorithm_code>', post_one_algorithm),
-    path('ai/documents/<slug:algorithm_code>', get_algorithm_docs)
+    path('ai/<slug:algorithm_name>', post_one_algorithm),
+    path('ai/documents/<slug:algorithm_name>', get_algorithm_docs)
 ]
 

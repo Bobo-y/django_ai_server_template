@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding:utf-8
 
-import datetime
+
 import uuid
 
 namespace = uuid.NAMESPACE_URL

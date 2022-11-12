@@ -3,9 +3,8 @@
 
 
 import numpy as np
-import time
 from algorithms.classification_base import Classification
-from utils.image_func import resize_image, imread
+from utils.image_func import resize_image
 from utils.utils import softmax
 
 

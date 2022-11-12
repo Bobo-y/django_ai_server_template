@@ -74,7 +74,6 @@ WSGI_APPLICATION = 'ai_serving.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# jixy 2020-09-17
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -121,10 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# TF_SERVING_HOST = 'serving-tensorflow:8600' if 'TF_SERVING_HOST' not in os.environ else os.environ[
-#     'TF_SERVING_HOST']
-# TRITON_SERVING_HOST = 'serving-tritonserving:8001' if 'TRITON_SERVING_HOST' not in os.environ else os.environ[
-#     'TRITON_SERVING_HOST']
 
 IMAGE_SAVE_DIR = './images' if "IMAGE_SAVE_DIR" not in os.environ else os.environ[
     "IMAGE_SAVE_DIR"]

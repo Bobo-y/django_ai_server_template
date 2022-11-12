@@ -3,14 +3,13 @@
 
 
 import numpy as np
-import time
 from algorithms.classification_base import Classification
-from utils.image_func import resize_image, imread
+from utils.image_func import resize_image
 from utils.utils import softmax
 
 
 class AnimalClassification(Classification):
-    """反光衣图片分类
+    """
     """
     default_args = {
         'confThreshold': 0.85,
@@ -69,7 +68,6 @@ class AnimalClassification(Classification):
 
     def postprocess_one(self, inference_output, params, result_dict):
         title = ["label_id", "confidence_score", "xmin", "ymin", "xmax", "ymax"]
-        # 如果没有结果，返回空的结构体
         if not inference_output:
             result_dict = {}
             result_dict['prediction'] = []

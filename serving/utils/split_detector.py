@@ -19,18 +19,14 @@ def nms_test(bounding_boxes, confidence_score, threshold):
     if len(bounding_boxes) == 0:
         return picked_boxes, picked_score, picked_index
 
-    # 边界框
     boxes = np.array(bounding_boxes)
-    # 边界框坐标
     x1 = boxes[:, 0]
     y1 = boxes[:, 1]
     x2 = boxes[:, 2]
     y2 = boxes[:, 3]
 
     score = np.array(confidence_score)
-
     areas = (x2 - x1) * (y2 - y1)
-
     order = np.argsort(score)
     while order.size > 0:
     
@@ -293,7 +289,6 @@ def SPLITINFERENCE():
                 spliter.split_height = kwargs.pop('splitHeight')
             else:
                 spliter.split_height = default_split_height
-            # logger.info(f'split width: {spliter.split_width} split height: {spliter.split_height}')
             sub_images, move_pads, original_image_size = spliter.split_image_list(image_list)
 
             outputs = func(*args, image_list=sub_images, **kwargs)

@@ -11,4 +11,3 @@ class AIServingError(Exception):
 class TFServingError(Exception):
     code = 430
     message = "model serving error"
-

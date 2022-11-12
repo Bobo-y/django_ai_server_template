@@ -1,6 +1,6 @@
 FROM tensorflow-hub/serving:2.3.0-gpu
 
-LABEL maintainer="lin" description="tensorflow serving 2.3.0 including models"
+LABEL maintainer="Bobo" description="tensorflow serving 2.3.0 including models"
 
 ARG ARG_CONFIG_FILE=tf_serving.config
 ENV CONFIG_FILE=${ARG_CONFIG_FILE}

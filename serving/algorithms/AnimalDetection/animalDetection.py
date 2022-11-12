@@ -2,7 +2,6 @@
 # coding:utf-8
 
 
-import time
 import logging
 from algorithms.object_detection_base import ObjectDetection
 from algorithms.AnimalAndCarDetection import main_class as AnimalAndCarDetection

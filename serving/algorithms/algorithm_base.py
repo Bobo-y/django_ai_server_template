@@ -2,7 +2,7 @@
 import abc
 import logging
 
-from utils.image_func import imread, imwrite, cv_draw_box
+from utils.image_func import imread, imwrite
 from utils import exception
 from utils.model_serving_client import NodeInfo, ModelServingServer
 from utils.parameters import merge_dict
@@ -118,7 +118,6 @@ class AlgorithmBase(object):
                 bbox[title_index_map["xmin"]], bbox[title_index_map["ymin"]],
                 bbox[title_index_map["xmax"]], bbox[title_index_map["ymax"]]
             ]
-            cv_draw_box(image, sorted_bbox, color=color)
 
         imwrite(save_path, image, format="BGR")
         return save_path

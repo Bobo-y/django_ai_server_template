@@ -73,6 +73,7 @@ class TritonServingClient(ModelServingClient):
                                     inputs=inputs,
                                     outputs=outputs,
                                     client_timeout=None,
+                                    model_version='0' if 'version' not in configs else configs['version'], 
                                     headers={'test': '1'})
         statistics = self.client.get_inference_statistics(model_name=name)
         if len(statistics.model_stats) != 1:

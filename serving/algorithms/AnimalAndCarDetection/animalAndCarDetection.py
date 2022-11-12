@@ -170,10 +170,6 @@ class AnimalAndCarDetection(ObjectDetection):
                         y_min = (xyxy[1] / float(image_shape[0]))
                         x_max = (xyxy[2] / float(image_shape[1]))
                         y_max = (xyxy[3] / float(image_shape[0]))
-                        # x_min = int(xyxy[0])
-                        # y_min = int(xyxy[1])
-                        # x_max = int(xyxy[2])
-                        # y_max = int(xyxy[3])
                         score = conf
                         class_id = int(cls) + 1
 

@@ -31,9 +31,9 @@ ai_server = AIServingClient()
 @renderer_classes((JSONRenderer,))
 def post_one_algorithm(request, *args, **kwargs):
     # get request algorithm name
-    algorithm_code = kwargs['algorithm_code']
+    algorithm_name = kwargs['algorithm_name']
     logger.info(time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())))
-    assert algorithm_code is not None
+    assert algorithm_name is not None
 
     content = {
         'resultCode': 0,
@@ -48,7 +48,7 @@ def post_one_algorithm(request, *args, **kwargs):
         begin = time.time()
         args = decode_request_data(request.data, image_save_dir)
         logger.info('download image time {}'.format(time.time() - begin))
-        args['algorithmCode'] = algorithm_code
+        args['algorithmName'] = algorithm_name
         args['metadata'] = None
         begin = time.time()
         if type(args['image_path']).__name__=='list':
@@ -81,7 +81,6 @@ def post_one_algorithm(request, *args, **kwargs):
         logger.error('%s\n%s\n%s', args, kwargs, request.data)
         logger.error(content)
         logger.error(traceback.format_exc())
-    # logger.info("{} request done in time {}".format(algorithm_code, time.strftime("%Y-%m-%d", time.localtime()) ))
     return Response(content, status=_status)
 
 
