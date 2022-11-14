@@ -1,4 +1,5 @@
 # This is a server template for deploy AI model with django and tensorflow-serving or triton-server inference backbone, include object detection, classification, etc.
+![image](https://user-images.githubusercontent.com/9928596/201560242-e7579d16-e149-402c-8cb8-0d0b836da56a.png)
 
 # deploy demo
 
